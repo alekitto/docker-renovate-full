@@ -29,6 +29,7 @@ jobs:
       - name: Build and Publish
         uses: alekitto/renovate-internal-tools@2b9da227a87d39e563128566457dc0c295a7ac55 # tag=v1.1.0
         with:
+          image-prefix: ${{ github.repository_owner }}
           command: docker-builder
           last-only: true
           dry-run: ${{github.ref != 'refs/heads/main'}}
