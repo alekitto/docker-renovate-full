@@ -16,6 +16,9 @@ RUN install-tool node v14.20.0
 # renovate: datasource=npm versioning=npm
 RUN install-tool yarn 1.22.19
 
+# renovate: datasource=github-releases lookupName=containerbase/python-prebuild
+RUN install-tool python 3.10.6
+
 WORKDIR /usr/src/app
 
 # Build image
@@ -23,6 +26,9 @@ WORKDIR /usr/src/app
 FROM base as tsbuild
 
 COPY . .
+
+RUN apt-get update -qq && \
+    apt-get install -y make build-essential g++
 
 RUN set -ex; \
   yarn install; \
@@ -69,9 +75,6 @@ RUN install-tool composer 2.3.10
 
 # renovate: datasource=golang-version
 RUN install-tool golang 1.19.0
-
-# renovate: datasource=github-releases lookupName=containerbase/python-prebuild
-RUN install-tool python 3.10.6
 
 # renovate: datasource=pypi
 RUN install-pip pipenv 2022.8.5
